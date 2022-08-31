@@ -1,0 +1,47 @@
+ul{
+    list-style-type: none
+}
+.my-nav{
+    background-color:#ECF0F1;
+}
+.logo{
+    width: 100px;
+    height: 40px;
+}
+.my-nav-tab{
+    border-bottom: 1px solid #dee2e6;
+}
+.my-tab-content{
+    padding: 25px;
+    border-bottom:1px solid #dee2e6;
+    border-right:1px solid #dee2e6;
+    border-left:1px solid #dee2e6;
+}
+.my-flow-btn{
+    margin-bottom: 15px;
+}
+.my-icons>a{
+    font-size: 18px;
+    font-weight: 600;
+    padding-right: 5px;
+}
+.my-main-padding{
+    padding-top: 25px;
+}
+
+.footer{
+    background-color:#fff;
+}
+ul>li>a {
+	color: rgb(255, 255, 255);
+	text-decoration:none;
+    width:300px;
+    height:50px;
+}
+ul>li>a:hover {
+    background-color: rgb(172, 185, 197);
+    color:rgb(255, 255, 255);
+}
+.my-nested-table{
+    color: #7F8C8D;
+}
