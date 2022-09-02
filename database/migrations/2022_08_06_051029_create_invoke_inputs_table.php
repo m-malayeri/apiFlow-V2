@@ -19,8 +19,8 @@ class CreateInvokeInputsTable extends Migration
             $table->integer('invoke_id');
             $table->text('input_name');
             $table->text('input_type');
-            $table->text('literal_value');
-            $table->text('api_input_name');
+            $table->text('literal_value')->nullable();
+            $table->text('api_input_name')->nullable();
             $table->timestamps();
         });
     }

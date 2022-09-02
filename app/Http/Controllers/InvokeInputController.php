@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Flow;
 use App\Models\InvokeInput;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,10 @@ class InvokeInputController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Flow $flow)
     {
-        //
+        $invokeInputs = InvokeInput::where('flow_id', $flow->id)->get();
+        return view('invokeInputs')->with(compact('flow', 'invokeInputs'));
     }
 
     /**
@@ -35,7 +37,19 @@ class InvokeInputController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $invokeInput = new InvokeInput;
+
+        $invokeInput->flow_id = $request->input('flow_id');
+        $invokeInput->invoke_id = $request->input('invoke_id');
+        $invokeInput->input_name = $request->input('input_name');
+        $invokeInput->input_type = $request->input('input_type');
+        $invokeInput->literal_value = $request->input('literal_value');
+        $invokeInput->api_input_name = $request->input('api_input_name');
+        $invokeInput->created_at = now();
+        $invokeInput->updated_at = now();
+
+        $invokeInput->save();
+        return redirect(url()->previous())->withMessage('Invoke input record inserted successfully');
     }
 
     /**
@@ -80,7 +94,8 @@ class InvokeInputController extends Controller
      */
     public function destroy(InvokeInput $invokeInput)
     {
-        //
+        $invokeInput->delete();
+        return redirect(url()->previous())->withMessage('Invoke input record deleted successfully');
     }
 
     public function getInvokeInputs($invokeId)

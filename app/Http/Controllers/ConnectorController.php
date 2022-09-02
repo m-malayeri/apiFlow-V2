@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Flow;
 use App\Models\Connector;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,10 @@ class ConnectorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Flow $flow)
     {
-        //
+        $connectors = Connector::where('flow_id', $flow->id)->get();
+        return view('connectors')->with(compact('flow', 'connectors'));
     }
 
     /**
@@ -35,7 +37,17 @@ class ConnectorController extends Controller
      */
     public function store(Request $request)
     {
-        $connectorId = (new Connector)->store($request);
+        $connector = new Connector;
+
+        $connector->flow_id = $request->input('flow_id');
+        $connector->src_type = $request->input('src_type');
+        $connector->src_id = $request->input('src_id');
+        $connector->target_type = $request->input('target_type');
+        $connector->target_id = $request->input('target_id');
+        $connector->created_at = now();
+        $connector->updated_at = now();
+
+        $connector->save();
         return redirect(url()->previous())->withMessage('Connector record inserted successfully');
     }
 
@@ -79,9 +91,9 @@ class ConnectorController extends Controller
      * @param  \App\Models\Connector  $connector
      * @return \Illuminate\Http\Response
      */
-    public function destroy($connectorId)
+    public function destroy(Connector $connector)
     {
-        $user = (new Connector)->where('id', $connectorId)->firstorfail()->delete();
+        $connector->delete();
         return redirect(url()->previous())->withMessage('Connector record deleted successfully');
     }
 

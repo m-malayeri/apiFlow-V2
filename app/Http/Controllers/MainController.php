@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
+    /*
     public function getHomeData()
     {
         // Query all home date 
@@ -43,11 +44,13 @@ class MainController extends Controller
             return view('welcome');
         }
     }
+    
 
     public function redirect()
     {
         return redirect(url('/'));
     }
+    */
 
     public function execute($flowName, Request $request)
     {

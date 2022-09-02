@@ -14,7 +14,8 @@ class ApiLogController extends Controller
      */
     public function index()
     {
-        //
+        $logs = ApiLog::all();
+        return view('logs')->with(compact('logs'));
     }
 
     /**

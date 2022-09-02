@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row my-main">
                 <div class="col-md-3 sidebar">
-                    @include('includes.mainSidebar')
+                    @include('includes.insideSidebar')
                     @yield('extraSidebar')
                 </div>
                 <div class="col-md-9">

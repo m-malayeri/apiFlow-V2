@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Flow;
-use App\Models\FlowNode;
+
+use App\Http\Controllers\FlowNodeController;
+
 use Illuminate\Http\Request;
 
 class FlowController extends Controller
@@ -15,7 +17,8 @@ class FlowController extends Controller
      */
     public function index()
     {
-        //
+        $flows = Flow::all();
+        return view('flows')->with(compact('flows'));
     }
 
     /**
@@ -36,13 +39,18 @@ class FlowController extends Controller
      */
     public function store(Request $request)
     {
-        $flowId = (new Flow)->store($request);
-        if (isset($flowId)) {
-            //(new FlowNode)->init($flowId);
-            return redirect(url()->previous())->withMessage('Record inserted successfully');
-        } else {
-            return redirect(url()->previous())->withError('Duplicate record is not allowed, please try again with another name');
-        }
+        $flow = new Flow;
+
+        $flow->flow_name = $request->input('flow_name');
+        $flow->status = "Enabled";
+        $flow->log_level = $request->input('log_level');
+        $flow->flow_name = $request->input('flow_name');
+        $flow->created_at = now();
+        $flow->updated_at = now();
+
+        $flow->save();
+
+        return redirect()->route('flows.index')->withMessage('Record inserted successfully');
     }
 
     /**
@@ -51,10 +59,16 @@ class FlowController extends Controller
      * @param  \App\Models\Flow  $flow
      * @return \Illuminate\Http\Response
      */
-    public function show($flowId)
+    public function show(Flow $flow)
     {
-        $flowDetails = (new Flow)->show($flowId);
-        return view('nodes')->with(compact('flowDetails'));
+        $flowNodes = (new FlowNodeController)->getFlowNodes($flow->id);
+        $invokes = (new InvokeController)->getFlowInvokes($flow->id);
+        $decisions = (new DecisionController)->getFlowDecisions($flow->id);
+        $connectors = (new ConnectorController)->getFlowConnectors($flow->id);
+        $invokeInputs = (new InvokeInputController)->getFlowInvokeInputs($flow->id);
+        $invokeOutputs = (new InvokeOutputController)->getFlowInvokeOutputs($flow->id);
+
+        return view('flowNodes')->with(compact('flow', 'flowNodes', 'invokes', 'decisions', 'connectors', 'invokeInputs', 'invokeOutputs'));
     }
 
     /**
@@ -65,7 +79,7 @@ class FlowController extends Controller
      */
     public function edit(Flow $flow)
     {
-        //
+        return view('flows')->with(compact('flow'));
     }
 
     /**
@@ -86,39 +100,15 @@ class FlowController extends Controller
      * @param  \App\Models\Flow  $flow
      * @return \Illuminate\Http\Response
      */
-    public function destroy($flowId)
+    public function destroy(Flow $flow)
     {
-        $user = (new Flow)->where('id', $flowId)->firstorfail()->delete();
-        return redirect(url()->previous())->withMessage('Record deleted successfully');
+        $flow->delete();
+        return redirect()->route('flows.index')->withMessage('Record deleted successfully');
     }
 
     public function getFlowDetailsByName($flowName)
     {
         $result = (new Flow)->getFlowDetailsByName($flowName);
         return $result;
-    }
-
-    public function getFlowDetailsById($flowId)
-    {
-        $result = (new Flow)->getFlowDetailsById($flowId);
-        return $result;
-    }
-
-    public function getAllFlows()
-    {
-        $result = (new Flow)->getAllFlows();
-        return $result;
-    }
-
-    public function disable($flowId)
-    {
-        (new Flow)->disable($flowId);
-        return redirect('/')->withMessage('Record updated successfully');
-    }
-
-    public function enable($flowId)
-    {
-        (new Flow)->enable($flowId);
-        return redirect('/')->withMessage('Record updated successfully');
     }
 }

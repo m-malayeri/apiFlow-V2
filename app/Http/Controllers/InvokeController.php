@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Flow;
 use App\Models\Invoke;
+use App\Models\InvokeInput;
 use Illuminate\Http\Request;
 
 class InvokeController extends Controller
@@ -12,9 +14,11 @@ class InvokeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Flow $flow)
     {
-        //
+        $invokes = Invoke::where('flow_id', $flow->id)->get();
+        $invokeInputs = InvokeInput::where('flow_id', $flow->id)->get();
+        return view('invokes')->with(compact('flow', 'invokes', 'invokeInputs'));
     }
 
     /**
@@ -35,7 +39,22 @@ class InvokeController extends Controller
      */
     public function store(Request $request)
     {
-        $invokeId = (new Invoke)->store($request);
+
+        $invoke = new Invoke;
+
+        $invoke->flow_id = $request->input('flow_id');
+        $invoke->flow_node_id = $request->input('flow_node_id');
+        $invoke->url = $request->input('url');
+        $invoke->method = $request->input('method');
+        $invoke->content_type = $request->input('content_type');
+        $invoke->auth_type = $request->input('auth_type');
+        $invoke->user = $request->input('user');
+        $invoke->password = $request->input('password');
+        $invoke->req_parent_object = $request->input('req_parent_object');
+        $invoke->created_at = now();
+        $invoke->updated_at = now();
+
+        $invoke->save();
         return redirect(url()->previous())->withMessage('Invoke record inserted successfully');
     }
 
@@ -79,21 +98,15 @@ class InvokeController extends Controller
      * @param  \App\Models\Invoke  $invoke
      * @return \Illuminate\Http\Response
      */
-    public function destroy($invokeId)
+    public function destroy(Invoke $invoke)
     {
-        $result = (new Invoke)->where('id', $invokeId)->firstorfail()->delete();
+        $invoke->delete();
         return redirect(url()->previous())->withMessage('Invoke record deleted successfully');
     }
 
     public function getInvokeDetails($flowId, $flowNodeId)
     {
         $result = (new Invoke)->getInvokeDetails($flowId, $flowNodeId);
-        return $result;
-    }
-
-    public function getFlowInvokes($flowId)
-    {
-        $result = (new Invoke)->getFlowInvokes($flowId);
         return $result;
     }
 }

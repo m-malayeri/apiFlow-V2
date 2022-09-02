@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Flow;
 use App\Models\Decision;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,10 @@ class DecisionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Flow $flow)
     {
-        //
+        $decisions = Decision::where('flow_id', $flow->id)->get();
+        return view('decisions')->with(compact('flow', 'decisions'));
     }
 
     /**
@@ -35,7 +37,18 @@ class DecisionController extends Controller
      */
     public function store(Request $request)
     {
-        $decisionId = (new Decision)->store($request);
+        $decision = new Decision;
+
+        $decision->flow_id = $request->input('flow_id');
+        $decision->flow_node_id = $request->input('flow_node_id');
+        $decision->prop_name = $request->input('prop_name');
+        $decision->decision_type = $request->input('decision_type');
+        $decision->prop_value = $request->input('prop_value');
+        $decision->next_node_id = $request->input('next_node_id');
+        $decision->created_at = now();
+        $decision->updated_at = now();
+
+        $decision->save();
         return redirect(url()->previous())->withMessage('Decision record inserted successfully');
     }
 
@@ -79,9 +92,9 @@ class DecisionController extends Controller
      * @param  \App\Models\Decision  $decision
      * @return \Illuminate\Http\Response
      */
-    public function destroy($decisionId)
+    public function destroy(Decision $decision)
     {
-        $user = (new Decision)->where('id', $decisionId)->firstorfail()->delete();
+        $decision->delete();
         return redirect(url()->previous())->withMessage('Decision record deleted successfully');
     }
 

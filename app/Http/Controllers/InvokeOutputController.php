@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Flow;
 use App\Models\InvokeOutput;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,10 @@ class InvokeOutputController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Flow $flow)
     {
-        //
+        $invokeOutputs = InvokeOutput::where('flow_id', $flow->id)->get();
+        return view('invokeOutputs')->with(compact('flow', 'invokeOutputs'));
     }
 
     /**
@@ -35,7 +37,17 @@ class InvokeOutputController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $invokeOutput = new InvokeOutput;
+
+        $invokeOutput->flow_id = $request->input('flow_id');
+        $invokeOutput->invoke_id = $request->input('invoke_id');
+        $invokeOutput->output_name = $request->input('output_name');
+        $invokeOutput->save_as_prop_name = $request->input('save_as_prop_name');
+        $invokeOutput->created_at = now();
+        $invokeOutput->updated_at = now();
+
+        $invokeOutput->save();
+        return redirect(url()->previous())->withMessage('Invoke output record inserted successfully');
     }
 
     /**
@@ -80,7 +92,8 @@ class InvokeOutputController extends Controller
      */
     public function destroy(InvokeOutput $invokeOutput)
     {
-        //
+        $invokeOutput->delete();
+        return redirect(url()->previous())->withMessage('Invoke output record deleted successfully');
     }
 
     public function getInvokeOutputs($invokeId)

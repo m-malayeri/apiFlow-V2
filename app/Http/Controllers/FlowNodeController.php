@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Flow;
 use App\Models\FlowNode;
+use App\Models\Connector;
 use Illuminate\Http\Request;
 
 class FlowNodeController extends Controller
@@ -12,9 +14,11 @@ class FlowNodeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Flow $flow)
     {
-        //
+        $flowNodes = FlowNode::where('flow_id', $flow->id)->get();
+        $connectors = Connector::where('flow_id', $flow->id)->get();
+        return view('nodes')->with(compact('flow', 'flowNodes', 'connectors'));
     }
 
     /**
@@ -35,7 +39,16 @@ class FlowNodeController extends Controller
      */
     public function store(Request $request)
     {
-        $flowNodeId = (new FlowNode)->store($request);
+        $flowNode = new FlowNode;
+
+        $flowNode->flow_id = $request->input('flow_id');
+        $flowNode->node_name = $request->input('node_name');
+        $flowNode->node_type = $request->input('node_type');
+        $flowNode->sub_type = $request->input('sub_type');
+        $flowNode->created_at = now();
+        $flowNode->updated_at = now();
+
+        $flowNode->save();
         return redirect(url()->previous())->withMessage('Node record inserted successfully');
     }
 
@@ -79,10 +92,10 @@ class FlowNodeController extends Controller
      * @param  \App\Models\FlowNode  $flowNode
      * @return \Illuminate\Http\Response
      */
-    public function destroy($flowNodeId)
+    public function destroy(FlowNode $node)
     {
-        $user = (new FlowNode)->where('id', $flowNodeId)->firstorfail()->delete();
-        return redirect(url()->previous())->withMessage('Node record deleted successfully');
+        $node->delete();
+        return redirect(url()->previous())->withMessage('Record deleted successfully');
     }
 
     public function getFlowNodes($flowId)

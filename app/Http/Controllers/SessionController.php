@@ -14,7 +14,8 @@ class SessionController extends Controller
      */
     public function index()
     {
-        //
+        $sessions = Session::all();
+        return view('sessions')->with(compact('sessions'));
     }
 
     /**
@@ -90,11 +91,5 @@ class SessionController extends Controller
     public function destroy($id)
     {
         Session::where('id', $id)->delete();
-    }
-
-    public function getAllSessions()
-    {
-        $result = (new Session)->getAllSessions();
-        return $result;
     }
 }
