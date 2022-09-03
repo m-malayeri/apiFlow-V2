@@ -12,7 +12,7 @@ class InvokeInput extends Model
     public function getInvokeInputs($invokeId)
     {
         $result = InvokeInput::where('invoke_id', $invokeId)->get();
-        if (isset($result))
+        if ($result)
             return $result;
         else return null;
     }
@@ -20,7 +20,7 @@ class InvokeInput extends Model
     public function getFlowInvokeInputs($flowId)
     {
         $result = InvokeInput::where('flow_id', $flowId)->get();
-        if (isset($result))
+        if ($result)
             return $result;
         else return null;
     }

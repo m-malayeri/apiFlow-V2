@@ -11,9 +11,9 @@ class Flow extends Model
 
     public function getFlowDetailsByName($flowName)
     {
-        $result = Flow::where('flow_name', $flowName)->get();
-        if (isset($result))
-            return $result[0];
+        $result = Flow::where('flow_name', $flowName)->first();
+        if ($result)
+            return $result;
         else return null;
     }
 }

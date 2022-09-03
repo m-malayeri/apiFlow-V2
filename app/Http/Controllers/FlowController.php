@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Flow;
 
-use App\Http\Controllers\FlowNodeController;
-
 use Illuminate\Http\Request;
 
 class FlowController extends Controller
@@ -65,14 +63,7 @@ class FlowController extends Controller
      */
     public function show(Flow $flow)
     {
-        $flowNodes = (new FlowNodeController)->getFlowNodes($flow->id);
-        $invokes = (new InvokeController)->getFlowInvokes($flow->id);
-        $decisions = (new DecisionController)->getFlowDecisions($flow->id);
-        $connectors = (new ConnectorController)->getFlowConnectors($flow->id);
-        $invokeInputs = (new InvokeInputController)->getFlowInvokeInputs($flow->id);
-        $invokeOutputs = (new InvokeOutputController)->getFlowInvokeOutputs($flow->id);
-
-        return view('flowNodes')->with(compact('flow', 'flowNodes', 'invokes', 'decisions', 'connectors', 'invokeInputs', 'invokeOutputs'));
+        //
     }
 
     /**

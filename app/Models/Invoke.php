@@ -11,9 +11,9 @@ class Invoke extends Model
 
     public function getInvokeDetails($flowId, $flowNodeId)
     {
-        $result = Invoke::where(['flow_id' => $flowId, 'flow_node_id' => $flowNodeId])->get();
-        if (count($result) > 0)
-            return $result[0];
+        $result = Invoke::where(['flow_id' => $flowId, 'flow_node_id' => $flowNodeId])->first();
+        if ($result)
+            return $result;
         else return null;
     }
 }

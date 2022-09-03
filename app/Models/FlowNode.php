@@ -12,7 +12,7 @@ class FlowNode extends Model
     public function getFlowNodes($flowId)
     {
         $result = FlowNode::where('flow_id', $flowId)->get();
-        if (count($result) > 0)
+        if ($result)
             return $result;
         else return null;
     }

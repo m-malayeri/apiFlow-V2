@@ -155,22 +155,23 @@ class MainController extends Controller
                     $resCode = "-120";
                     $resDesc = "Unknown flow response, please contact administrator";
                 }
+
+                // Clear sessions and properties based on flow config
+                if ($flowDetails->log_level == "Property") {
+                    (new SessionController)->destroy($sessionId);
+                } else if ($flowDetails->log_level == "Session") {
+                    (new PropertyController)->destroy($sessionId);
+                } else if ($flowDetails->log_level == "None") {
+                    (new SessionController)->destroy($sessionId);
+                    (new PropertyController)->destroy($sessionId);
+                }
+
+                // Update RSP and calculate duration
+                (new ApiLogController)->update($apiLog, $flowResponse);
             } else {
                 $resCode = "-105";
                 $resDesc = "Flow is disabled, please enable it via GUI";
             }
-            // Clear sessions and properties based on flow config
-            if ($flowDetails->log_level == "Property") {
-                (new SessionController)->destroy($sessionId);
-            } else if ($flowDetails->log_level == "Session") {
-                (new PropertyController)->destroy($sessionId);
-            } else if ($flowDetails->log_level == "None") {
-                (new SessionController)->destroy($sessionId);
-                (new PropertyController)->destroy($sessionId);
-            }
-
-            // Update RSP and calculate duration
-            (new ApiLogController)->update($apiLog, $flowResponse);
         }
 
         $flowResponse->ResponseCode = $resCode;

@@ -34,26 +34,24 @@ class ApiLogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($request, $sessionId)
+    public function store(Request $request, $sessionId)
     {
         $body = $request->getContent();
-
         $data = json_decode(json_encode($body), true);
 
-        $array = array(
-            'session_id' => $sessionId,
-            'endpoint' => $request->path(),
-            'req_timestamp' => now(),
-            'rsp_timestamp' => "",
-            'duration' => 0,
-            'req' => $data,
-            'rsp' => "",
-            'created_at' => now(),
-            'updated_at' => now(),
-        );
+        $log = new ApiLog;
 
-        $result = (new ApiLog)->store($array);
-        return $result;
+        $log->session_id = $sessionId;
+        $log->endpoint = $request->path();
+        $log->req_timestamp = now();
+        $log->rsp_timestamp = "";
+        $log->duration = 0;
+        $log->req = $data;
+        $log->rsp = "";
+        $log->created_at = now();
+        $log->updated_at = now();
+
+        $log->save();
     }
 
     /**

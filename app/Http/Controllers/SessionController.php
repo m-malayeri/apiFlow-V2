@@ -38,14 +38,16 @@ class SessionController extends Controller
     {
         $flow_name = explode("/", $request->path());
         $flow_name = $flow_name[1];
-        $array = array(
-            'flow_name' => $flow_name,
-            'src_ip' => $request->ip(),
-            'created_at' => now(),
-            'updated_at' => now()
-        );
-        $result = (new Session)->store($array);
-        return $result;
+
+        $session = new Session;
+
+        $session->flow_name = $flow_name;
+        $session->src_ip = $request->ip();
+        $session->created_at = now();
+        $session->updated_at = now();
+
+        $session->save();
+        return Session::get()->last()->id;
     }
 
     /**
