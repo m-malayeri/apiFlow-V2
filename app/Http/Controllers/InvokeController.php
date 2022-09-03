@@ -39,6 +39,13 @@ class InvokeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'flow_node_id' => 'required',
+            'url' => 'required',
+            'method' => 'required',
+            'content_type' => 'required',
+            'auth_type' => 'required'
+        ]);
 
         $invoke = new Invoke;
 

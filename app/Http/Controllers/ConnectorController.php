@@ -37,6 +37,13 @@ class ConnectorController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'src_type' => 'required',
+            'src_id' => 'required',
+            'target_type' => 'required',
+            'target_id' => 'required'
+        ]);
+
         $connector = new Connector;
 
         $connector->flow_id = $request->input('flow_id');

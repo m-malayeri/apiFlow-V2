@@ -8,13 +8,6 @@
 </ul>
 <div class="tab-content my-tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="sessions" role="tabpanel" aria-labelledby="sessions-tab">
-        @if (Session::has('message'))
-        <div class="alert alert-success well-sm" role="alert">{{ Session::get('message') }}</div>
-        @endif
-        @if (Session::has('error'))
-        <div class="alert alert-danger well-sm" role="alert">{{ Session::get('error') }}</div>
-        @endif
-
         @if(count($sessions)>0)
         <table class="table table-striped table-hover table-striped">
             <thead>

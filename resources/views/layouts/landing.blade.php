@@ -15,6 +15,20 @@
                     @yield('extraSidebar')
                 </div>
                 <div class="col-md-9">
+                    @if (Session::has('message'))
+                    <div class="alert alert-success well-sm" role="alert">{{ Session::get('message') }}</div>
+                    @endif
+                    @if (Session::has('error'))
+                    <div class="alert alert-danger well-sm" role="alert">{{ Session::get('error') }}</div>
+                    @endif
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger well-sm" role="alert">
+                        @foreach ($errors->all() as $error)
+                        {{ $error }}
+                        @endforeach
+                    </div>
+                    @endif
                     @yield('content')
                 </div>
             </div>

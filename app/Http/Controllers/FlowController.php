@@ -39,12 +39,16 @@ class FlowController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'flow_name' => 'required|unique:flows|max:128',
+            'log_level' => 'required',
+        ]);
+
         $flow = new Flow;
 
         $flow->flow_name = $request->input('flow_name');
         $flow->status = "Enabled";
         $flow->log_level = $request->input('log_level');
-        $flow->flow_name = $request->input('flow_name');
         $flow->created_at = now();
         $flow->updated_at = now();
 

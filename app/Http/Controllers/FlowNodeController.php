@@ -39,6 +39,11 @@ class FlowNodeController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'node_name' => 'required|unique:flow_nodes|max:128',
+            'node_type' => 'required'
+        ]);
+
         $flowNode = new FlowNode;
 
         $flowNode->flow_id = $request->input('flow_id');

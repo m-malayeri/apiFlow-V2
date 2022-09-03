@@ -37,6 +37,12 @@ class InvokeOutputController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'invoke_id' => 'required',
+            'output_name' => 'required',
+            'save_as_prop_name' => 'required'
+        ]);
+
         $invokeOutput = new InvokeOutput;
 
         $invokeOutput->flow_id = $request->input('flow_id');

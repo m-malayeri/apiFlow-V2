@@ -8,13 +8,6 @@
 </ul>
 <div class="tab-content my-tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="invokes" role="tabpanel" aria-labelledby="invokes-tab">
-        @if (Session::has('message'))
-        <div class="alert alert-success well-sm" role="alert">{{ Session::get('message') }}</div>
-        @endif
-        @if (Session::has('error'))
-        <div class="alert alert-danger well-sm" role="alert">{{ Session::get('error') }}</div>
-        @endif
-
         @if(count($invokes)>0)
         <table class="table table-striped table-hover table-striped">
             <thead>
@@ -90,7 +83,7 @@
 
 @section('extraSidebar')
 <div class="my-new-record">
-    <form method="post" action="">
+    <form method="post" action="{{route('flows.invokes.store', $flow)}}">
         @csrf
         <input type="hidden" class="form-control" id="flow_id" name="flow_id" value="{{$flow->id}}" required>
         <div class="card">
@@ -98,11 +91,11 @@
             <div class="card-body">
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Flow Node Id</span>
-                    <input type="text" id="flow_node_id" name="flow_node_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input type="text" id="flow_node_id" name="flow_node_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">URL</span>
-                    <input type="text" id="url" name="url" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input type="text" id="url" name="url" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <label class="input-group-text" for="inputGroupSelect01">Method</label>

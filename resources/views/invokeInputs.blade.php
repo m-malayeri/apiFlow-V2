@@ -8,13 +8,6 @@
 </ul>
 <div class="tab-content my-tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="invokeInputs" role="tabpanel" aria-labelledby="invokeInputs-tab">
-        @if (Session::has('message'))
-        <div class="alert alert-success well-sm" role="alert">{{ Session::get('message') }}</div>
-        @endif
-        @if (Session::has('error'))
-        <div class="alert alert-danger well-sm" role="alert">{{ Session::get('error') }}</div>
-        @endif
-
         @if(count($invokeInputs)>0)
         <table class="table table-striped table-hover table-striped">
             <thead>
@@ -57,7 +50,7 @@
 
 @section('extraSidebar')
 <div class="my-new-record">
-    <form method="post" action="">
+    <form method="post" action="{{route('flows.invokeInputs.store', $flow)}}">
         @csrf
         <input type="hidden" class="form-control" id="flow_id" name="flow_id" value="{{$flow->id}}" required>
         <div class="card">
@@ -65,11 +58,11 @@
             <div class="card-body">
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Invoke Id</span>
-                    <input type="text" id="invoke_id" name="invoke_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input type="text" id="invoke_id" name="invoke_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Input Name</span>
-                    <input type="text" id="input_name" name="input_name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input type="text" id="input_name" name="input_name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <label class="input-group-text" for="inputGroupSelect01">Input Type</label>

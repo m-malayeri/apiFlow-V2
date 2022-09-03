@@ -37,6 +37,12 @@ class InvokeInputController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'invoke_id' => 'required',
+            'input_name' => 'required',
+            'input_type' => 'required'
+        ]);
+
         $invokeInput = new InvokeInput;
 
         $invokeInput->flow_id = $request->input('flow_id');

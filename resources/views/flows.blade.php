@@ -8,13 +8,6 @@
 </ul>
 <div class="tab-content my-tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="flows" role="tabpanel" aria-labelledby="flows-tab">
-        @if (Session::has('message'))
-        <div class="alert alert-success well-sm" role="alert">{{ Session::get('message') }}</div>
-        @endif
-        @if (Session::has('error'))
-        <div class="alert alert-danger well-sm" role="alert">{{ Session::get('error') }}</div>
-        @endif
-
         @if(count($flows)>0)
         <table class="table table-striped table-hover">
             <thead>
@@ -57,14 +50,14 @@
 
 @section('extraSidebar')
 <div class="my-new-record">
-    <form method="post" action="{{ route('flows.store')}}">
+    <form method="post" action="{{route('flows.store')}}">
         @csrf
         <div class="card">
             <div class="card-header">New Flow</div>
             <div class="card-body">
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Flow Name</span>
-                    <input type="text" id="flow_name" name="flow_name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input type="text" id="flow_name" name="flow_name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <label class="input-group-text" for="inputGroupSelect01">Log Level</label>
@@ -75,7 +68,6 @@
                         <option value="None">None</option>
                     </select>
                 </div>
-
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>
         </div>

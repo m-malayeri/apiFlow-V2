@@ -8,13 +8,6 @@
 </ul>
 <div class="tab-content my-tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="invokeOutputs" role="tabpanel" aria-labelledby="invokeOutputs-tab">
-        @if (Session::has('message'))
-        <div class="alert alert-success well-sm" role="alert">{{ Session::get('message') }}</div>
-        @endif
-        @if (Session::has('error'))
-        <div class="alert alert-danger well-sm" role="alert">{{ Session::get('error') }}</div>
-        @endif
-
         @if(count($invokeOutputs)>0)
         <table class="table table-striped table-hover table-striped">
             <thead>
@@ -53,7 +46,7 @@
 
 @section('extraSidebar')
 <div class="my-new-record">
-    <form method="post" action="">
+    <form method="post" action="{{route('flows.invokeOutputs.store', $flow)}}">
         @csrf
         <input type="hidden" class="form-control" id="flow_id" name="flow_id" value="{{$flow->id}}" required>
         <div class="card">
@@ -61,15 +54,15 @@
             <div class="card-body">
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Invoke Id</span>
-                    <input type="text" id="invoke_id" name="invoke_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input type="text" id="invoke_id" name="invoke_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Output Name</span>
-                    <input type="text" id="output_name" name="output_name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input type="text" id="output_name" name="output_name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Save as Prop.</span>
-                    <input type="text" id="save_as_prop_name" name="save_as_prop_name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    <input type="text" id="save_as_prop_name" name="save_as_prop_name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>

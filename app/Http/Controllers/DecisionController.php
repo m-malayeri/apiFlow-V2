@@ -37,6 +37,14 @@ class DecisionController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'flow_node_id' => 'required',
+            'prop_name' => 'required',
+            'decision_type' => 'required',
+            'prop_value' => 'required',
+            'next_node_id' => 'required'
+        ]);
+
         $decision = new Decision;
 
         $decision->flow_id = $request->input('flow_id');
