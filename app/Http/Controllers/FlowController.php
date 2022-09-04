@@ -100,10 +100,4 @@ class FlowController extends Controller
         $flow->delete();
         return redirect()->route('flows.index')->withMessage('Record deleted successfully');
     }
-
-    public function getFlowDetailsByName($flowName)
-    {
-        $result = (new Flow)->getFlowDetailsByName($flowName);
-        return $result;
-    }
 }

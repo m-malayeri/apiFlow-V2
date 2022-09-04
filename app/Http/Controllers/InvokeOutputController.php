@@ -101,16 +101,4 @@ class InvokeOutputController extends Controller
         $invokeOutput->delete();
         return redirect(url()->previous())->withMessage('Invoke output record deleted successfully');
     }
-
-    public function getInvokeOutputs($invokeId)
-    {
-        $result = (new InvokeOutput)->getInvokeOutputs($invokeId);
-        return $result;
-    }
-
-    public function getFlowInvokeOutputs($flowId)
-    {
-        $result = (new InvokeOutput)->getFlowInvokeOutputs($flowId);
-        return $result;
-    }
 }

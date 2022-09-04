@@ -110,10 +110,4 @@ class InvokeController extends Controller
         $invoke->delete();
         return redirect(url()->previous())->withMessage('Invoke record deleted successfully');
     }
-
-    public function getInvokeDetails($flowId, $flowNodeId)
-    {
-        $result = (new Invoke)->getInvokeDetails($flowId, $flowNodeId);
-        return $result;
-    }
 }

@@ -1,5 +1,4 @@
 <div class="list-group">
-    <a href="{{url('flows')}}" class="list-group-item list-group-item-action" aria-current="true">Flows</a>
     <a href="{{route('flows.nodes.index',$flow)}}" class="list-group-item list-group-item-action {{ Request::is('*/nodes') ? 'active' : '' }}" aria-current="true"> Nodes</a>
     <a href="{{route('flows.invokes.index',$flow)}}" class="list-group-item list-group-item-action {{ Request::is('*/invokes') ? 'active' : '' }}" aria-current="true"> Invokes</a>
     <a href="{{route('flows.invokeInputs.index',$flow)}}" class="list-group-item list-group-item-action {{ Request::is('*/invokeInputs') ? 'active' : '' }}" aria-current="true"> Invoke Inputs</a>

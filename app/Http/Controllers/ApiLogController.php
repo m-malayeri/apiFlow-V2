@@ -99,10 +99,4 @@ class ApiLogController extends Controller
     {
         //
     }
-
-    public function getAllLogs()
-    {
-        $result = (new ApiLog)->getAllLogs();
-        return $result;
-    }
 }

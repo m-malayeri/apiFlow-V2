@@ -103,16 +103,4 @@ class ConnectorController extends Controller
         $connector->delete();
         return redirect(url()->previous())->withMessage('Connector record deleted successfully');
     }
-
-    public function getNextNodeId($flowNodeId, $nodeType)
-    {
-        $result = (new Connector)->getNextNodeId($flowNodeId, $nodeType);
-        return $result;
-    }
-
-    public function getFlowConnectors($flowId)
-    {
-        $result = (new Connector)->getFlowConnectors($flowId);
-        return $result;
-    }
 }

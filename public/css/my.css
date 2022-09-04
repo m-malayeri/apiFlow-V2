@@ -1,56 +1,80 @@
-ul{
+ul {
     list-style-type: none
 }
-.my-nav{
-    background-color:#ECF0F1;
+
+.my-nav {
+    background-color: #ECF0F1;
 }
-.logo{
+
+.logo {
     width: 100px;
     height: 40px;
 }
-.my-nav-tab{
+
+.my-nav-tab {
     border-bottom: 1px solid #dee2e6;
 }
-.my-new-record{
+
+.my-new-record {
     padding-top: 20px;
 }
-.my-main{
+
+.my-main {
     padding-top: 25px;
 }
-.my-tab-content{
+
+.my-tab-content {
     padding: 15px;
-    border-bottom:1px solid #dee2e6;
-    border-right:1px solid #dee2e6;
-    border-left:1px solid #dee2e6;
+    border-bottom: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+    min-height: 600px;
 }
-.my-flow-btn{
+
+.my-flow-btn {
     margin-bottom: 15px;
 }
-.my-icons>a>i{
+
+.my-icons>a>i {
     font-size: 18px;
     font-weight: 600;
     padding-right: 5px;
 }
-.my-delete{
+
+.my-delete {
     border: 0px;
     background-color: transparent;
     color: #0d6efd;
     font-size: 22px;
     padding: 0px;
 }
-.footer{
-    background-color:#fff;
+
+.footer {
+    background-color: #fff;
 }
+
 ul>li>a {
-	color: rgb(255, 255, 255);
-	text-decoration:none;
-    width:300px;
-    height:50px;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    width: 300px;
+    height: 50px;
 }
+
 ul>li>a:hover {
     background-color: rgb(172, 185, 197);
-    color:rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
 }
-.my-nested-table{
+
+.my-nested-table {
     color: #7F8C8D;
+}
+
+.my-breadcrumb {
+    background-color: #ECF0F1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.my-breadcrumb>li>a {
+    text-decoration: none;
 }

@@ -9,26 +9,6 @@ class FlowNode extends Model
 {
     use HasFactory;
 
-    public function getFlowNodes($flowId)
-    {
-        $result = FlowNode::where('flow_id', $flowId)->get();
-        if ($result)
-            return $result;
-        else return null;
-    }
-
-    public function getLastNodeId($flowId)
-    {
-        $result = FlowNode::where(['flow_id' => $flowId])->first()->id;
-        return $result;
-    }
-
-    public function getFirstNodeId($flowId)
-    {
-        $result = FlowNode::where(['flow_id' => $flowId, 'node_name' => "Start"])->first()->id;
-        return $result;
-    }
-
     public function init($flowId)
     {
         $array = array(

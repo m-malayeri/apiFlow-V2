@@ -103,16 +103,4 @@ class InvokeInputController extends Controller
         $invokeInput->delete();
         return redirect(url()->previous())->withMessage('Invoke input record deleted successfully');
     }
-
-    public function getInvokeInputs($invokeId)
-    {
-        $result = (new InvokeInput)->getInvokeInputs($invokeId);
-        return $result;
-    }
-
-    public function getFlowInvokeInputs($flowId)
-    {
-        $result = (new InvokeInput)->getFlowInvokeInputs($flowId);
-        return $result;
-    }
 }

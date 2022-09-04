@@ -36,18 +36,7 @@ class SessionController extends Controller
      */
     public function store(Request $request)
     {
-        $flow_name = explode("/", $request->path());
-        $flow_name = $flow_name[1];
-
-        $session = new Session;
-
-        $session->flow_name = $flow_name;
-        $session->src_ip = $request->ip();
-        $session->created_at = now();
-        $session->updated_at = now();
-
-        $session->save();
-        return Session::get()->last()->id;
+        //
     }
 
     /**
@@ -92,6 +81,6 @@ class SessionController extends Controller
      */
     public function destroy($id)
     {
-        Session::where('id', $id)->delete();
+        //
     }
 }

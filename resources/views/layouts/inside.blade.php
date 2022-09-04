@@ -29,7 +29,6 @@
                         @endforeach
                     </div>
                     @endif
-
                     @yield('content')
                 </div>
             </div>

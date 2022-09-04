@@ -102,22 +102,4 @@ class FlowNodeController extends Controller
         $node->delete();
         return redirect(url()->previous())->withMessage('Record deleted successfully');
     }
-
-    public function getFlowNodes($flowId)
-    {
-        $result = (new FlowNode)->getFlowNodes($flowId);
-        return $result;
-    }
-
-    public function getFirstNodeId($flowId)
-    {
-        $result = (new FlowNode)->getFirstNodeId($flowId);
-        return $result;
-    }
-
-    public function getLastNodeId($flowId)
-    {
-        $result = (new FlowNode)->getLastNodeId($flowId);
-        return $result;
-    }
 }

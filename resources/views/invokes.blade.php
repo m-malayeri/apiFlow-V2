@@ -1,6 +1,13 @@
 @extends('layouts.inside')
 
 @section('content')
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb my-breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/flows">Flows</a></li>
+        <li class="breadcrumb-item active">Invokes</li>
+    </ol>
+</nav>
 <ul class="nav nav-tabs my-nav-tab" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
         <button class="nav-link active" id="invokes-tab" data-bs-toggle="tab" data-bs-target="#invokes" type="button" role="tab" aria-controls="invokes" aria-selected="false">Invokes</button>
