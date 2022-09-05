@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Flow;
+use App\Models\FlowNode;
 use App\Models\Connector;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,9 @@ class ConnectorController extends Controller
      */
     public function index(Flow $flow)
     {
+        $flowNodes = FlowNode::where('flow_id', $flow->id)->get();
         $connectors = Connector::where('flow_id', $flow->id)->get();
-        return view('connectors')->with(compact('flow', 'connectors'));
+        return view('connectors')->with(compact('flow', 'flowNodes', 'connectors'));
     }
 
     /**

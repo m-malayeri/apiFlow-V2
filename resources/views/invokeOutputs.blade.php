@@ -3,7 +3,7 @@
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb my-breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/"><i class='fa fa-home'></i></a></li>
         <li class="breadcrumb-item"><a href="/flows">Flows</a></li>
         <li class="breadcrumb-item active">Invoke Outputs</li>
     </ol>
@@ -20,7 +20,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Invoke Id</th>
+                    <th scope="col">Node Name</th>
                     <th scope="col">Output Name</th>
                     <th scope="col">Save as Prop Name</th>
                     <th scope="col">Actions</th>
@@ -29,8 +29,13 @@
             <tbody>
                 @foreach($invokeOutputs as $invokeOutput)
                 <tr>
+                    @php
+                    $invoke = $invokes->where('id', $invokeOutput->invoke_id)->first();
+                    $invokeNode = $invokeNodes->where('id', $invoke->flow_node_id)->first();
+                    @endphp
+
                     <th scope="row">{{$invokeOutput->id}}</th>
-                    <td>{{$invokeOutput->invoke_id}}</td>
+                    <td>{{$invokeNode->node_name}}</td>
                     <td>{{$invokeOutput->output_name}}</td>
                     <td>{{$invokeOutput->save_as_prop_name}}</td>
                     <td class="my-icons">
@@ -60,8 +65,12 @@
             <div class="card-header">New Invoke Output</div>
             <div class="card-body">
                 <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Invoke Id</span>
-                    <input type="text" id="invoke_id" name="invoke_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                    <label class="input-group-text" for="inputGroupSelect01">Node Name</label>
+                    <select id="invoke_id" name="invoke_id" class="form-select" id="inputGroupSelect01">
+                        @foreach($invokeNodes as $invokeNode)
+                        <option value="{{$invokeNode->flow_node_id}}">{{$invokeNode->node_name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">Output Name</span>

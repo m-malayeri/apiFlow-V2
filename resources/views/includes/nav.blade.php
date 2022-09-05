@@ -4,7 +4,7 @@
             <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container">
                     <div class="navbar-header">
-                        <img class="logo" src="{{ URL::asset('images/logo3.png') }}">
+                        <a href="/"><img class="logo" src="{{URL::asset('images/logo3.png')}}"></a>
                     </div>
                 </div>
             </nav>

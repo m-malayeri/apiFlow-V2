@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Flow;
+use App\Models\FlowNode;
 use App\Models\Decision;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,10 @@ class DecisionController extends Controller
     public function index(Flow $flow)
     {
         $decisions = Decision::where('flow_id', $flow->id)->get();
-        return view('decisions')->with(compact('flow', 'decisions'));
+        $flowNodes = FlowNode::where('flow_id', $flow->id)->get();
+        $decisionNodes = FlowNode::where(['flow_id' => $flow->id, 'node_type' => "Decision"])->get();
+        $nextNodes = FlowNode::where('flow_id', $flow->id)->whereNotIn('node_type', ["Decision", "Start"])->get();
+        return view('decisions')->with(compact('flow', 'flowNodes', 'decisions', 'decisionNodes', 'nextNodes'));
     }
 
     /**

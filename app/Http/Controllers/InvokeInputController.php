@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Flow;
+use App\Models\FlowNode;
+use App\Models\Invoke;
 use App\Models\InvokeInput;
 use Illuminate\Http\Request;
 
@@ -15,8 +17,10 @@ class InvokeInputController extends Controller
      */
     public function index(Flow $flow)
     {
+        $invokes = Invoke::where('flow_id', $flow->id)->get();
         $invokeInputs = InvokeInput::where('flow_id', $flow->id)->get();
-        return view('invokeInputs')->with(compact('flow', 'invokeInputs'));
+        $invokeNodes = FlowNode::where(['flow_id' => $flow->id, 'node_type' => "Action", 'sub_type' => "Invoke"])->get();
+        return view('invokeInputs')->with(compact('flow', 'invokes', 'invokeInputs', 'invokeNodes'));
     }
 
     /**

@@ -3,7 +3,7 @@
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb my-breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/"><i class='fa fa-home'></i></a></li>
         <li class="breadcrumb-item active">Logs</li>
     </ol>
 </nav>

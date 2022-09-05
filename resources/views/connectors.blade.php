@@ -3,7 +3,7 @@
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb my-breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/"><i class='fa fa-home'></i></a></li>
         <li class="breadcrumb-item"><a href="/flows">Flows</a></li>
         <li class="breadcrumb-item active">Connectors</li>
     </ol>
@@ -21,20 +21,22 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Source Type</th>
-                    <th scope="col">Source Node Id</th>
+                    <th scope="col">Source Node Name</th>
                     <th scope="col">Target Type</th>
-                    <th scope="col">Target Node Id</th>
+                    <th scope="col">Target Node Name</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($connectors as $connector)
                 <tr>
+                    @php $sourceNode = $flowNodes->where('id', $connector->src_id)->first(); @endphp
                     <th scope="row">{{$connector->id}}</th>
                     <td>{{$connector->src_type}}</td>
-                    <td>{{$connector->src_id}}</td>
+                    <td>{{$sourceNode->node_name}}</td>
                     <td>{{$connector->target_type}}</td>
-                    <td>{{$connector->target_id}}</td>
+                    @php $targetNode = $flowNodes->where('id', $connector->target_id)->first(); @endphp
+                    <td>{{$targetNode->node_name}}</td>
                     <td class="my-icons">
                         <form id="delete-form" action="{{route('connectors.destroy',$connector)}}" class="d-inline" method="POST">
                             @method('DELETE')
@@ -71,8 +73,12 @@
                     </select>
                 </div>
                 <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Source Node Id</span>
-                    <input type="text" id="src_id" name="src_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                    <label class="input-group-text" for="inputGroupSelect01">Node Name</label>
+                    <select id="src_id" name="src_id" class="form-select" id="inputGroupSelect01">
+                        @foreach($flowNodes as $flowNode)
+                        <option value="{{$flowNode->id}}">{{$flowNode->node_name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <label class="input-group-text" for="inputGroupSelect01">Target Type</label>
@@ -84,8 +90,12 @@
                     </select>
                 </div>
                 <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Target Node Id</span>
-                    <input type="text" id="target_id" name="target_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                    <label class="input-group-text" for="inputGroupSelect01">Node Name</label>
+                    <select id="target_id" name="target_id" class="form-select" id="inputGroupSelect01">
+                        @foreach($flowNodes as $flowNode)
+                        <option value="{{$flowNode->id}}">{{$flowNode->node_name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </div>

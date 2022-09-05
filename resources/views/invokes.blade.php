@@ -3,7 +3,7 @@
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb my-breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <li class="breadcrumb-item"><a href="/"><i class='fa fa-home'></i></a></li>
         <li class="breadcrumb-item"><a href="/flows">Flows</a></li>
         <li class="breadcrumb-item active">Invokes</li>
     </ol>
@@ -20,7 +20,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Node Id</th>
+                    <th scope="col">Node Name</th>
                     <th scope="col">URL</th>
                     <th scope="col">Method</th>
                     <th scope="col">Content Type</th>
@@ -32,9 +32,10 @@
             <tbody>
                 @foreach($invokes as $invoke)
                 <tr>
+                    @php $invokeNode = $invokeNodes->where('id', $invoke->flow_node_id)->first(); @endphp
                     <th scope="row">{{$invoke->id}}</th>
-                    <td>{{$invoke->flow_node_id}}</td>
-                    <td>{{Str::limit($invoke->url, 30)}}</td>
+                    <td>{{$invokeNode->node_name}}</td>
+                    <td title="{{$invoke->url}}">{{Str::limit($invoke->url, 30)}}</td>
                     <td>{{$invoke->method}}</td>
                     <td>{{$invoke->content_type}}</td>
                     <td>{{$invoke->auth_type}}</td>
@@ -61,9 +62,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php
-                                $invokeInputsArray = $invokeInputs->where('invoke_id', $invoke->id);
-                                @endphp
+                                @php $invokeInputsArray = $invokeInputs->where('invoke_id', $invoke->id); @endphp
                                 @foreach($invokeInputsArray as $invokeInput)
                                 <tr>
                                     <th scope="row"></th>
@@ -97,8 +96,12 @@
             <div class="card-header">New Invoke</div>
             <div class="card-body">
                 <div class="input-group input-group-sm mb-3">
-                    <span class="input-group-text" id="inputGroup-sizing-default">Flow Node Id</span>
-                    <input type="text" id="flow_node_id" name="flow_node_id" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" required>
+                    <label class="input-group-text" for="inputGroupSelect01">Node Name</label>
+                    <select id="flow_node_id" name="flow_node_id" class="form-select" id="inputGroupSelect01">
+                        @foreach($invokeNodes as $invokeNode)
+                        <option value="{{$invokeNode->id}}">{{$invokeNode->node_name}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="input-group input-group-sm mb-3">
                     <span class="input-group-text" id="inputGroup-sizing-default">URL</span>
