@@ -1,3 +1,6 @@
+![Flows page](https://github.com/m-malayeri/apiFlow-V2/blob/master/public/images/Flows.png)
+
+
 ## About apiFlow
 This project is built using Laravel 9.27
 apiFlow is an open-source workflow engine designed to ease the implementation of business requirements. If you have an already available micro-service based REST web services, apiFlow helps you to easily configure customer's business requirements by defining an action-decision based sequence. apiFlow takes out the pain of development by easing common tasks used in many web projects, such as:
