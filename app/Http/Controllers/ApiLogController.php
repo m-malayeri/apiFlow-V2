@@ -52,6 +52,7 @@ class ApiLogController extends Controller
         $log->updated_at = now();
 
         $log->save();
+        return ApiLog::get()->last();
     }
 
     /**

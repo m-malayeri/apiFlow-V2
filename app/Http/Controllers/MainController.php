@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\ApiPropertyController;
 use App\Http\Controllers\Api\ApiSessionController;
 use App\Http\Controllers\Api\ApiFlowController;
 use App\Http\Controllers\Api\ApiFlowNodeController;
+use App\Http\Controllers\Api\ApiDecisionController;
 use App\Http\Controllers\Api\ApiConnectorController;
 use App\Http\Controllers\Api\ApiInvokeController;
 use App\Http\Controllers\Api\ApiInvokeInputController;

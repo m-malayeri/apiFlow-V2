@@ -8,18 +8,17 @@ use Tests\TestCase;
 
 class EngineTest extends TestCase
 {
-    /*
+
     public function test_flow_returns_success()
     {
-        $response = $this->postJson('/execute/AutoRegister', ['MembershipNumber' => '500218', 'ProgramId' => '9SIA-GQI6H', 'ProductName' => '284']);
+        $response = $this->postJson('/execute/AutoRegister', ['MembershipNumber' => '500217', 'ProgramId' => '9SIA-GQI6H', 'ProductName' => '222']);
         $response
             ->assertStatus(200)
-            ->assertExactJson([
+            ->assertJson([
                 'ResponseCode' => "0",
                 'ResponseDescription' => "Flow execution completed successfully",
             ]);
     }
-    */
 
     public function test_flow_not_exist_returns_error()
     {
